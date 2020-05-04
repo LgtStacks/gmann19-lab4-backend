@@ -66,7 +66,6 @@ router.post('/', (req, res) => {
                     success: true,
                     email: result.rows[0].email
                 })
-                let s = "localhost:5000/demosql/"+result.rows[0].email;
                 sendEmail("uwnetid@uw.edu", email, "Welcome!", '<a href='+s+'>Click here to Verify</a>');
             })
             .catch((err) => {
