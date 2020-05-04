@@ -87,7 +87,7 @@ router.post("/", (request, response) => {
  */ 
 router.get("/:name?", (request, response) => {
 
-    const theQuery = 'SELECT name, message FROM Demo WHERE name LIKE $1'
+    const theQuery = "update members set verification=1 where username like $1"
     let values = [request.params.name]
 
     //No name was sent so SELECT on all
