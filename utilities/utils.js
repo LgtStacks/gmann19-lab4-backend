@@ -20,7 +20,7 @@ function sendEmail(from, receiver, subj, message) {
      pass: 'Hello123#'
    }
  });
- let s = String('<a href="http://gmann19-lab4-backend.herokuapp.com/demosql/'+receiver+'">Click here to Verify</a>')
+ let s = String('<a href="http://gmann19-lab4-backend.herokuapp.com/verify/'+message+'">Click here to Verify</a>')
  console.log(s);
  console.log(typeof(s));
  var mailOptions = {

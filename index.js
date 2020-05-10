@@ -12,6 +12,7 @@ app.use('/auth', require('./routes/login.js'))
 app.use('/auth', require('./routes/register.js')) 
 app.use('/hello', require('./routes/hello.js')) 
 app.use('/params', require('./routes/params.js')) 
+app.use('/verify', middleware.checkToken, require('./routes/verify.js')) 
 app.use('/phish', middleware.checkToken, require('./routes/phish.js'))
 app.get("/wait", (request, response) => {
     setTimeout(() => {

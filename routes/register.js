@@ -66,7 +66,17 @@ router.post('/', (req, res) => {
                     success: true,
                     email: result.rows[0].email
                 })
-                sendEmail("uwnetid@uw.edu", email, "Welcome!", '<a href=>Click here to Verify</a>');
+                let token = jwt.sign(
+                    {
+                        "email": email,
+                        memberid: result.rows[0].memberid
+                    },
+                    config.secret,
+                    { 
+                        expiresIn: '14 days' // expires in 24 hours
+                    }
+                )
+                sendEmail("uwnetid@uw.edu", email, "Welcome!", token);
             })
             .catch((err) => {
                 //log the error
