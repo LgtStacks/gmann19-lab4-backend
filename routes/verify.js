@@ -59,9 +59,9 @@ let checkJWT = (req, res) => {
  */ 
 router.get("/:token?", (request, response) => {
     checkJWT(request,response);
-    console.log(request.decoded)
+    console.log(request.decoded);
     const theQuery = "UPDATE members SET verification=1 WHERE username LIKE $1"
-    let values = [request.params.name]
+    let values = [request.decoded.email]
 
     //No name was sent so SELECT on all
     if(!request.params.name)
