@@ -16,7 +16,7 @@ var router = express.Router()
 const bodyParser = require("body-parser")
 //This allows parsing of the body of POST requests, that are encoded in JSON
 router.use(bodyParser.json())
-
+let jwt = require('jsonwebtoken')
 /**
  * @api {post} /register Request to resgister a user
  * @apiName PostAuth
