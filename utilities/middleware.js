@@ -2,8 +2,11 @@ let jwt = require('jsonwebtoken');
 let config = {
     secret: process.env.JSON_WEB_TOKEN
 };
-let checkJWT = (req, res) => {
-  let token = req.params.token;
+let checkJWT = (req, res, next) => {
+  next();
+  let token = req.params.token
+  console.log(req.params)
+  console.log(req)
   if (token) {
     if (token.startsWith('Bearer ')) {
         // Remove Bearer from string

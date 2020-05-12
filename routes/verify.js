@@ -32,15 +32,37 @@ let config = {
  * 
  * 
  */ 
-router.get("/:token?", (request, response) => {
-    checkJWT(request,response);
-    console.log(request.decoded);
-    const theQuery = "UPDATE members SET verification=1 WHERE username LIKE $1"
+router.get("/:token?",(req, res, next) => {
+    let token = req.params.token
+    console.log(req.params)
+    console.log("*******************************************")
+    if (token) {
+      if (token.startsWith('Bearer ')) {
+          // Remove Bearer from string
+          token = token.slice(7, token.length);
+      }
+  
+      jwt.verify(token, config.secret, (err, decoded) => {
+        if (err) {
+          return res.status(403).json({
+            success: false,
+            message: 'Token is not valid'
+          });
+        } else {
+          req.decoded = decoded;
+          next();
+        }
+      });
+    } else {
+      return res.status(401).json({
+        success: false,
+        message: 'Auth token is not supplied'
+      });
+    }
+  }, (request, response) => {
+    console.log(request.params);
+    const theQuery = "UPDATE members SET verification=1 WHERE email=$1"
     let values = [request.decoded.email]
-
-    //No name was sent so SELECT on all
-    if(!request.params.name)
-        values = ["%"]
 
     pool.query(theQuery, values)
         .then(result => {
